@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import { usePathname } from "next/navigation";
+
 import {
   Navbar,
   NavbarBrand,
@@ -14,6 +16,8 @@ import {
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const pathname = usePathname();
+
   const menuItems = [
     "Profile",
     "Dashboard",
@@ -40,14 +44,14 @@ export const Header = () => {
         </NavbarContent>
 
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
-          <NavbarItem isActive>
-            <Link color="foreground" href="/home">
+          <NavbarItem isActive={pathname == "/home"}>
+            <Link color="primary" href="/home">
               HOME
             </Link>
           </NavbarItem>
-          <NavbarItem>
-            <Link href="/cadastro" color="foreground">
-              Cadastre seu lead
+          <NavbarItem isActive={pathname == "/cadastro"}>
+            <Link href="/cadastro" color="primary">
+              CADASTRO DE LEADS
             </Link>
           </NavbarItem>
         </NavbarContent>
