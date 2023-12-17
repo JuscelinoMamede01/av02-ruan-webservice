@@ -1,18 +1,16 @@
 {
   "leads": [
     {
-      "name": "Joao",
-      "id": 2,
-      "isEditing": false,
-      "telefone": "222",
-      "email": "j@gmail.com"
+      "name": "Thais Belo",
+      "telefone": "8177441122",
+      "email": "thai@gmail.com",
+      "id": 4
     },
     {
-      "name": "ferreira",
-      "telefone": "45632",
-      "email": "jk@gmail",
-      "id": 3,
-      "isEditing": false
+      "name": "Juscelino Mamede",
+      "telefone": "8199663322",
+      "email": "jusce@gmail.com",
+      "id": 5
     }
   ]
 }
