@@ -18,6 +18,11 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
 
+  const links = [
+    { name: "HOME", href: "/" },
+    { name: "CADASTRO DE LEAD", href: "/cadastro" },
+  ];
+
   const menuItems = [
     "Profile",
     "Dashboard",
@@ -44,16 +49,13 @@ export const Header = () => {
         </NavbarContent>
 
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
-          <NavbarItem isActive={pathname == "/home"}>
-            <Link color="primary" href="/home">
-              HOME
-            </Link>
-          </NavbarItem>
-          <NavbarItem isActive={pathname == "/cadastro"}>
-            <Link href="/cadastro" color="primary">
-              CADASTRO DE LEADS
-            </Link>
-          </NavbarItem>
+          {links.map((navLink, index) => (
+            <NavbarItem key={index} isActive={navLink.href == pathname}>
+              <Link color="primary" href={navLink.href}>
+                {navLink.name}
+              </Link>
+            </NavbarItem>
+          ))}
         </NavbarContent>
 
         <NavbarMenu>
