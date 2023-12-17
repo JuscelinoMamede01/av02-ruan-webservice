@@ -56,6 +56,7 @@ const CadastroPage = () => {
           >
             Nome Completo
           </label>
+
           <input
             type="text"
             id="name"

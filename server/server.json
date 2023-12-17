@@ -1,28 +1,17 @@
 {
   "leads": [
     {
-      "id": 1,
-      "name": "Juscelino Mamede",
-      "telefone": "81-9999-9865",
-      "email": "juscelino@gmail.com"
-    },
-    {
+      "name": "Joao",
       "id": 2,
-      "name": "Thais Mamede",
-      "telefone": "81-9999-9125",
-      "email": "thais@gmail.com"
+      "isEditing": false,
+      "telefone": "222",
+      "email": "j@gmail.com"
     },
     {
-      "id": 3,
-      "name": "julia Mamede",
-      "telefone": "81-8899-9125",
-      "email": "julia@gmail.com"
-    },
-    {
-      "name": "João batista",
-      "telefone": "81-4455-2211",
-      "email": "joao@gmail.com",
-      "id": 4
+      "name": "ferreira",
+      "telefone": "45632",
+      "email": "jk@gmail",
+      "id": 3
     }
   ]
 }

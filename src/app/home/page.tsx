@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
+import { Skeleton } from "@nextui-org/react";
 
 interface LeadProps {
   id: 1;
   name: string;
   telefone: string;
   email: string;
+  isEditing: boolean;
 }
 
 const HomePage = () => {
@@ -34,6 +36,57 @@ const HomePage = () => {
     loadLeads();
   }, []);
 
+  async function handleDeleteItem(leadId: number) {
+    console.log(leadId);
+
+    try {
+      await api.delete(`/leads/${leadId}`);
+
+      const filteredLeads = leads.filter((lead) => lead.id !== leadId);
+      setLeads(filteredLeads);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  }
+
+  async function handleEditItem(leadId: number) {
+    let leadItem: any;
+
+    const result = leads.map((lead) => {
+      if (lead.id === leadId) {
+        const updatedItem = { ...lead, isEditing: !lead.isEditing };
+        leadItem = updatedItem;
+
+        return updatedItem;
+      }
+      return lead;
+    });
+
+    setLeads(result);
+    if (!leadItem.isEditing) await api.put(`/leads/${leadId}`, leadItem);
+  }
+
+  function handleChangeLead(
+    leadId: number,
+    nameValue: string,
+    telefoneValue: string,
+    emailValue: string
+  ) {
+    const result = leads.map((lead) => {
+      if (lead.id === leadId) {
+        return {
+          ...lead,
+          name: nameValue,
+          telefone: telefoneValue,
+          email: emailValue,
+        };
+      }
+      return lead;
+    });
+
+    setLeads(result);
+  }
+
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg text-center border space-y-10 p-4">
@@ -41,29 +94,91 @@ const HomePage = () => {
           Leads Cadastrados
         </h3>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+          {loading && (
+            <div className="w-full flex flex-col gap-2">
+              <Skeleton className="h-3 w-3/5 rounded-lg" />
+              <Skeleton className="h-3 w-4/5 rounded-lg" />
+            </div>
+          )}
           <tbody>
             <ul>
               {leads.map((lead) => (
                 <li key={lead.id}>
                   <tr className="bg-white border-b ">
-                    <th
-                      scope="row"
-                      className=" font-medium text-gray-900 whitespace-nowrap w-40 py-4"
-                    >
-                      {lead.name}
-                    </th>
-                    <td className="w-40 py-4">{lead.telefone}</td>
-                    <td className=" w-40 py-4">{lead.email}</td>
+                    {lead.isEditing ? (
+                      <input
+                        type="text"
+                        id="name"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                        placeholder="Digite seu nome"
+                        onChange={(e) =>
+                          handleChangeLead(
+                            lead.id,
+                            e.target.value,
+                            lead.telefone,
+                            lead.email
+                          )
+                        }
+                        required
+                      />
+                    ) : (
+                      <th
+                        scope="row"
+                        className=" font-medium text-gray-900 whitespace-nowrap w-40 py-4"
+                      >
+                        {lead.name}
+                      </th>
+                    )}
+                    {lead.isEditing ? (
+                      <input
+                        type="text"
+                        id="telefone"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                        placeholder="Digite seu Telefone"
+                        onChange={(e) =>
+                          handleChangeLead(
+                            lead.id,
+                            lead.name,
+                            e.target.value,
+                            lead.email
+                          )
+                        }
+                        required
+                      />
+                    ) : (
+                      <td className="w-40 py-4">{lead.telefone}</td>
+                    )}
+                    {lead.isEditing ? (
+                      <input
+                        type="text"
+                        id="email"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                        placeholder="Digite seu Email"
+                        onChange={(e) =>
+                          handleChangeLead(
+                            lead.id,
+                            lead.name,
+                            lead.telefone,
+                            e.target.value
+                          )
+                        }
+                        required
+                      />
+                    ) : (
+                      <td className="w-40 py-4">{lead.email}</td>
+                    )}
                     <td className="w-28 py-4">
                       <a
+                        onClick={() => handleEditItem(lead.id)}
                         href="#"
                         className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 "
                       >
-                        Editar
+                        {lead.isEditing ? "Save" : "Edit"}
                       </a>
                     </td>
                     <td className="w-28 py-4 ">
                       <a
+                        onClick={() => handleDeleteItem(lead.id)}
                         href="#"
                         className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 "
                       >
