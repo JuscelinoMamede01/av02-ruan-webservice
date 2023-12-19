@@ -45,6 +45,7 @@ const CadastroPage = () => {
       console.log("Error:", error);
     }
   }
+
   return (
     <section className="p-10 space-y-10">
       <h3 className="text-3xl font-bold dark:text-white">Cadastre de LEAD</h3>
@@ -106,6 +107,7 @@ const CadastroPage = () => {
         >
           Submit
         </button>
+        
       </form>
     </section>
   );

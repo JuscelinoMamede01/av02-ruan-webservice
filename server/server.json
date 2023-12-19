@@ -1,16 +1,11 @@
 {
   "leads": [
     {
-      "name": "Thais Belo",
-      "telefone": "8177441122",
-      "email": "thai@gmail.com",
-      "id": 4
-    },
-    {
       "name": "Juscelino Mamede",
-      "telefone": "8199663322",
-      "email": "jusce@gmail.com",
-      "id": 5
+      "telefone": "78",
+      "email": "jk@gmail.com",
+      "id": 1,
+      "isEditing": false
     }
   ]
 }

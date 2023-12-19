@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "server": "json-server --watch server.json --port 3333"
+    "server": "json-server --watch --port 5555 server.json"
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
