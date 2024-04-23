@@ -38,8 +38,6 @@ $ cd av02-ruan-webservice
 
 ---
 
-by Juscelino Mamede 🎸
 
-JOHN 14:6 ✟
 
 
